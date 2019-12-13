@@ -1,33 +1,27 @@
 
-#include <stdlib.h>		// EXIT_SUCCESS et al
-#include <stdio.h>		// fprintf() et al
-#include <string.h>		// strlen() et al 
-#include <sys/socket.h>		// For socket(), inet_ntoa()
-#include <netinet/in.h>		// For sockaddr_in, htons(), inet_ntoa()
-#include <arpa/inet.h>		// For inet_ntoa()
-#include <netdb.h>		// For getaddrinfo()
-#include <errno.h>		// For errno var
-#include <sys/types.h>		// For open(), stat()
-#include <sys/stat.h>		// For open(), read(), write(), stat()
-#include <fcntl.h>		// and close()
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>	
+#include <netinet/in.h>	
+#include <arpa/inet.h>	
+#include <netdb.h>	
+#include <errno.h>	
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <signal.h>
 #include <wait.h>
 #include <time.h>
 #include <pthread.h>
 #include <errno.h>
-#include <unistd.h>		// open(), stat(), unlink()
+#include <unistd.h>
 #include <string>
 #include <list>
 #include <vector>
 #include <map>
-#include <math.h>		// fabs()
+#include <math.h>	
 
-
-/*----	----	----	----	----	----	----	----	----	----*
- *----									----*
- *----			Definition of constants:			----*
- *----									----*
- *----	----	----	----	----	----	----	----	----	----*/
 #define		NUMERIC_AXIS_STATS_PAGE_NAME		\
 		"numericAxisStats.swt"
 
@@ -63,22 +57,16 @@ const char	QUOTE_CHAR			= 0x22;
 #define		QUOTE_STRING			"\""
 
 
-//  PURPOSE:  To tell the beginning JSON brace
 const char	BEGIN_JSON_BRACE	= '{';
 
-//  PURPOSE:  To tell the ending JSON brace
 const char	END_JSON_BRACE		= '{';
 
-//  PURPOSE:  To tell the beginning JSON array
 const char	BEGIN_JSON_ARRAY	= '[';
 
-//  PURPOSE:  To tell the ending JSON array
 const char	END_JSON_ARRAY		= ']';
 
-//  PURPOSE:  To tell the JSON separator
 const char	JSON_SEPARATOR		= ',';
 
-//  PURPOSE:  To tell the JSON mapping char
 const char	JSON_MAPPER		= ':';
 
 #define		JSON_TYPE_KEY			"type"
