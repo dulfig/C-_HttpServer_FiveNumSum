@@ -21,4 +21,4 @@ Using Java will produce the expected raw html code since you would not have acce
 +---------+  <----------  +-----------+  <------------  +-------+  <---  +---+
 ```
 ## Example Plot Response from R
-!(https://github.com/dulfig/C-_HttpServer_FiveNumSum/blob/master/plot.png)
+![](https://github.com/dulfig/C-_HttpServer_FiveNumSum/blob/master/graph.png)
