@@ -1,27 +1,27 @@
 // http://127.0.0.1:2000/response.html?lastname=Giggle
-#include	"serverHeader.h"
+#include "serverHeader.h"
 
-const char	QUERY_CHAR		= '?';
-const char	FRAGMENT_CHAR		= '#';
-const char	QUERY_ASSIGNMENT_CHAR	= '=';
-const char	QUERY_SEGMENT_CHAR	= '&';
-const char	QUERY_HEX_ESCAPE_CHAR	= '%';
-const char	QUERY_SPACE_CHAR	= '+';
-const int	COOKIE_LEN		= 32;
-const char*	HEXADIGIT_ARRAY		= "0123456789ABCDEF";
-const char*	DEFAULT_CONTENT_FILEPATH= "./content.txt";
-const char*	LOGIN_PAGE_NAME		= "login";
-const char*	LOGOUT_PAGE_NAME	= "logout";
-const char*	WELCOME_PAGE_NAME	= "/welcome" SIMPLE_WEB_TEMPLATE_EXT;
-const char*	LIN_FIT_PAGE_NAME	= "linFit" SIMPLE_WEB_TEMPLATE_EXT;
-const char*	POOR_FIT_PAGE_NAME	= "poorFit" SIMPLE_WEB_TEMPLATE_EXT;
-const char*	ERROR_PAGE_NAME		= "error" SIMPLE_WEB_TEMPLATE_EXT;
-const char*	USERNAME_HTML_VARNAME	= "name";
-const char*	ID_HTML_VARNAME		= "id";
-const int	AUTOLOGOUT_TIME_SECS	= 60 * 15;
-const int	ASCTIME_BUFFER_LEN	= 26;	// From man pages
-const int	R_PORT			= 58384;
-const float	CORREL_THRESHOLD	= 0.5;
+const char QUERY_CHAR = '?';
+const char FRAGMENT_CHAR = '#';
+const char QUERY_ASSIGNMENT_CHAR = '=';
+const char QUERY_SEGMENT_CHAR = '&';
+const char QUERY_HEX_ESCAPE_CHAR = '%';
+const char QUERY_SPACE_CHAR = '+';
+const int COOKIE_LEN = 32;
+const char* HEXADIGIT_ARRAY = "0123456789ABCDEF";
+const char* DEFAULT_CONTENT_FILEPATH = "./content.txt";
+const char* LOGIN_PAGE_NAME = "login";
+const char* LOGOUT_PAGE_NAME = "logout";
+const char* WELCOME_PAGE_NAME = "/welcome" SIMPLE_WEB_TEMPLATE_EXT;
+const char* LIN_FIT_PAGE_NAME = "linFit" SIMPLE_WEB_TEMPLATE_EXT;
+const char* POOR_FIT_PAGE_NAME = "poorFit" SIMPLE_WEB_TEMPLATE_EXT;
+const char* ERROR_PAGE_NAME = "error" SIMPLE_WEB_TEMPLATE_EXT;
+const char* USERNAME_HTML_VARNAME = "name";
+const char* ID_HTML_VARNAME = "id";
+const int AUTOLOGOUT_TIME_SECS = 60 * 15;
+const int ASCTIME_BUFFER_LEN = 26;
+const int R_PORT = 58384;
+const float CORREL_THRESHOLD = 0.5;
 
 
 typedef	enum{
@@ -35,14 +35,7 @@ typedef	enum{
 		}
 		httpMethod_ty;
 
-const char*	HTTP_METHOD_NAME_ARRAY[]
-      		= {
-		    "GET",
-		    "PUT",
-		    "DELETE",
-		    "POST",
-		    "HEAD"	
-		  };
+const char* HTTP_METHOD_NAME_ARRAY[]= {"GET", "PUT", "DELETE", "POST", "HEAD"};
 
 typedef enum{
 		  OK_HTTP_RET_CODE = 200,
@@ -54,7 +47,7 @@ typedef enum{
 		}
 		httpReturnCode_ty;
 
-#define		WITH_COOKIE_HEADER_TEMPLATE\
+#define	WITH_COOKIE_HEADER_TEMPLATE\
 		"HTTP/1.0 %d %s\r\n"\
 		"Server: " SERVER_NAME "/" SERVER_VERSION "\r\n"\
 		"Content-Type: %s\r\n"\
@@ -63,7 +56,7 @@ typedef enum{
 		"Date: %s"\
 		"\r\n"
 
-#define		WITHOUT_COOKIE_HEADER_TEMPLATE\
+#define WITHOUT_COOKIE_HEADER_TEMPLATE\
 		"HTTP/1.0 %d %s\r\n"\
 		"Server: " SERVER_NAME "/" SERVER_VERSION "\r\n"\
 		"Content-Type: %s\r\n"\
@@ -71,7 +64,7 @@ typedef enum{
 		"Date: %s"\
 		"\r\n"
 
-#define		BAD_REQUEST_PAGE\
+#define BAD_REQUEST_PAGE\
 		"<!DOCTYPE HTML>"\
 		"<html lang=\"en\">"\
 		" <head><title>Bad request</title></head>"\
@@ -80,7 +73,7 @@ typedef enum{
 		" </body>"\
 		"</html>"
 
-#define		UNAUTHORIZED_PAGE\
+#define UNAUTHORIZED_PAGE\
 		"<!DOCTYPE HTML>"\
 		"<html lang=\"en\">"\
 		" <head><title>Unauthorized</title></head>"\
@@ -89,7 +82,7 @@ typedef enum{
 		" </body>"\
 		"</html>"
 
-#define		FORBIDDEN_PAGE\
+#define FORBIDDEN_PAGE\
 		"<!DOCTYPE HTML>"\
 		"<html lang=\"en\">"\
 		" <head><title>Forbidden</title></head>"\
@@ -98,7 +91,7 @@ typedef enum{
 		" </body>"\
 		"</html>"
 
-#define		NOT_FOUND_PAGE\
+#define NOT_FOUND_PAGE\
 		"<!DOCTYPE HTML>"\
 		"<html lang=\"en\">"\
 		" <head><title>Not found</title></head>"\
@@ -107,7 +100,7 @@ typedef enum{
 		" </body>"\
 		"</html>"
 
-#define		METHOD_NOT_ALLOWED_PAGE\
+#define METHOD_NOT_ALLOWED_PAGE\
 		"<!DOCTYPE HTML>"\
 		"<html lang=\"en\">"\
 		" <head><title>Method not allowed</title></head>"\
@@ -118,29 +111,23 @@ typedef enum{
 
 #include "JSONValue.h"
 
-const char*	CACHE_CONTROL[]	= {"max-age=",
-					 "s-maxage=",
-					 "public",
-					 "private",
-					 "no-cache",
-					 "no-store",
-      					};
+const char* CACHE_CONTROL[] = {"max-age=", "s-maxage=", "public", "private", "no-cache", "no-store",};
 
 typedef	std::map<std::string,std::string> StringToString;
-typedef	std::map<std::string,std::string>::iterator	StringToStringIter;
+typedef	std::map<std::string,std::string>::iterator StringToStringIter;
 
 int rPort;
 extern
 int safeRand();
 extern
-const char*	getMimeGuess(const char* filepathCPtr, const char* contentsCPtr);
+const char* getMimeGuess(const char* filepathCPtr, const char* contentsCPtr);
 
 #define	safeDelete(p){if((p)!=NULL){ delete(p); (p)=NULL;} }
 
 #define	safeFree(p){if ((p)!=NULL){ free(p); (p)=NULL;} }
 
-static bool		shouldRun	= true;
-static pthread_mutex_t	safeRandLock__;
+static bool shouldRun = true;
+static pthread_mutex_t safeRandLock__;
 
 class Cookie{
   char textValue_[COOKIE_LEN+1];
