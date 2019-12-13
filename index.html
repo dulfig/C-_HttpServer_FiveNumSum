@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>Welcome to CSC 376 Final Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+  * {
+      box-sizing: border-box;
+    }
+
+  .column
+    {
+      float: left;
+      width: 33.33%;
+      padding: 10px;
+    }
+
+  .row:after
+    {
+      content: "";
+      display: table;
+      clear: both
+    }
+
+  h1{
+      text-align: center;
+    }
+
+  h2{
+      text-align: center;
+    }
+  </style>
+ </head>
+ <body>
+  <h1>Welcome to CSC 376 Final Project</h1>
+   <div class="row">
+    <div class="column">
+     <form action="numericAxisStats.swt">
+      x[0] = <input type="text" name="x0" size="8"/><br/>
+      x[1] = <input type="text" name="x1" size="8"/><br/>
+      x[2] = <input type="text" name="x2" size="8"/><br/>
+      x[3] = <input type="text" name="x3" size="8"/><br/>
+      x[4] = <input type="text" name="x4" size="8"/><br/>
+      x[5] = <input type="text" name="x5" size="8"/><br/>
+      x[6] = <input type="text" name="x6" size="8"/><br/>
+      x[7] = <input type="text" name="x7" size="8"/><br/>
+      <input type="submit" value="Submit"/><br/>
+     </form> 
+    </div>
+    <div class="column">
+      <table>
+	<tr>
+	  <td align="right">mean = </td>
+	  <td align="center">N/A</td>
+	</tr>
+	<tr>
+	  <td align="right">min =</td>
+	  <td align="center">N/A</td>
+	</tr>
+	<tr>
+	  <td align="right">q25 =</td>
+	  <td align="center">N/A</td>
+	</tr>
+ 	<tr>
+	  <td align="right">median =</td>
+	  <td align="center">N/A</td>
+	</tr>
+ 	<tr>
+	  <td align="right">q75 =</td>
+	  <td align="center">N/A</td>
+	</tr>
+ 	<tr>
+	  <td align="right">max =</td>
+	  <td align="center">N/A</td>
+	</tr>
+      </table>
+    </div>
+    <div class="column">
+      <img src="noData.png" height="256" width="256"/>
+    </div>
+   </div>
+ </body>
+</html>
